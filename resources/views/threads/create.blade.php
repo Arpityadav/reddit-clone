@@ -38,5 +38,8 @@
                 </button>
             </div>
         </div>
+
+        @include('partials.errors')
     </form>
+
 @endsection

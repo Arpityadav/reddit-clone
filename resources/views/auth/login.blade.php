@@ -60,4 +60,5 @@
                 @endif
             </div>
         </div>
+        @include('partials.errors')
 @endsection
