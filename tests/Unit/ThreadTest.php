@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,4 +30,23 @@ class ThreadTest extends TestCase
 
         $this->assertInstanceOf(User::class, $thread->user);
     }
+
+    /** @test */
+    public function it_has_many_comments()
+    {
+        $thread = factory('App\Thread')->create();
+
+        $this->assertInstanceOf(Collection::class, $thread->comment);
+    }
+
+    /** @test */
+    public function a_thread_can_add_comments()
+    {
+        $thread = factory('App\Thread')->create();
+        $thread->addComment('Foo Comment');
+
+        $this->assertCount(1, $thread->comment);
+
+    }
+
 }

@@ -23,3 +23,5 @@ Route::post('/threads', 'ThreadsController@store');
 Route::get('/threads', 'ThreadsController@index');
 Route::get('/threads/create', 'ThreadsController@create');
 Route::get('/threads/{thread}', 'ThreadsController@show');
+
+Route::post('/threads/{thread}/comment', 'ThreadCommentsController@store');
