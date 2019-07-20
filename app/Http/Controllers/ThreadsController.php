@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
-use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->only('create', 'store');
     }
 
     public function index()
@@ -36,8 +35,14 @@ class ThreadsController extends Controller
         return redirect($thread->path());
     }
 
-    public function show (Thread $thread)
+    public function show(Thread $thread)
     {
+        if (($thread->comment->count())){
+            $thread->sortComments();
+
+            return view('threads.show', compact('thread', 'comments'));
+        }
+
         return view('threads.show', compact('thread'));
     }
 }

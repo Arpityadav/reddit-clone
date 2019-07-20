@@ -11,6 +11,7 @@ class Comment extends Model
     public function reply($body)
     {
         $reply = new static(compact('body'));
+        $reply->user_id = auth()->id();
         $reply->reply_to_id = $this->id;
         $reply->thread_id = $this->thread->id;
 
@@ -32,4 +33,10 @@ class Comment extends Model
     {
         return $this->belongsTo(Comment::class, 'reply_to_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

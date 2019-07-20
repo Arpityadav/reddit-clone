@@ -4,9 +4,9 @@ namespace Tests\Unit;
 
 use App\Comment;
 use App\Thread;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentTest extends TestCase
@@ -16,9 +16,9 @@ class CommentTest extends TestCase
     /** @test */
     public function it_can_be_replied()
     {
-        $thread = factory('App\Thread')->create();
+        $this->signIn();
 
-        $comment = $thread->addComment('Foo Comment');
+        $comment = factory('App\Comment')->create();
 
         $comment->reply('Replying to Foo Comment');
 
@@ -28,9 +28,7 @@ class CommentTest extends TestCase
     /** @test */
     public function it_has_many_replies()
     {
-        $thread = factory('App\Thread')->create();
-
-        $comment = $thread->addComment('Foo Comment');
+        $comment = factory('App\Comment')->create();
 
         $this->assertInstanceOf(Collection::class, $comment->replies);
     }
@@ -38,9 +36,9 @@ class CommentTest extends TestCase
     /** @test */
     public function it_knows_its_parent()
     {
-        $thread = factory('App\Thread')->create();
-        $comment = $thread->addComment('Foo Comment');
+        $this->signIn();
 
+        $comment = factory('App\Comment')->create();
         $this->assertNull($comment->parent);
 
         $comment->reply('Reply to Foo Comment');
@@ -51,9 +49,8 @@ class CommentTest extends TestCase
     /** @test */
     public function replies_belongs_to_a_comment()
     {
-        $thread = factory('App\Thread')->create();
-        $comment = $thread->addComment('Foo Comment');
-
+        $this->signIn();
+        $comment = factory('App\Comment')->create();
 
         $reply = $comment->reply('Replying to Foo Comment');
 
@@ -63,9 +60,16 @@ class CommentTest extends TestCase
     /** @test */
     public function it_belongs_to_a_thread()
     {
-        $thread = factory('App\Thread')->create();
-        $comment = $thread->addComment('Foo Comment');
+        $comment = factory('App\Comment')->create();
 
         $this->assertInstanceOf(Thread::class, $comment->thread);
+    }
+
+    /** @test */
+    public function it_belongs_to_a_user()
+    {
+        $comment = factory('App\Comment')->create();
+
+        $this->assertInstanceOf(User::class, $comment->user);
     }
 }

@@ -15,11 +15,12 @@ class ThreadCommentsController extends Controller
 
     public function store(Thread $thread)
     {
-        if ($commentId = request('reply_to_id')) {
-            $comment = Comment::findOrFail($commentId);
-            $comment->reply(request('body'));
-        }else {
-            $thread->addComment(request('body'));
-        }
+        request()->validate([
+            'body' => 'required'
+        ]);
+
+        $thread->addComment(request('body'), request('reply_to_id'));
+
+        return back();
     }
 }

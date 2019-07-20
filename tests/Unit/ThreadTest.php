@@ -23,9 +23,6 @@ class ThreadTest extends TestCase
     /** @test */
     public function it_belongs_to_user()
     {
-        $user = factory('App\User')->create();
-        $this->actingAs($user);
-
         $thread = factory('App\Thread')->create();
 
         $this->assertInstanceOf(User::class, $thread->user);
@@ -42,6 +39,8 @@ class ThreadTest extends TestCase
     /** @test */
     public function a_thread_can_add_comments()
     {
+        $this->signIn();
+
         $thread = factory('App\Thread')->create();
         $thread->addComment('Foo Comment');
 

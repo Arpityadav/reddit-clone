@@ -13,7 +13,7 @@ class ThreadCommentsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_comment_to_a_thread()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
         $thread = factory('App\Thread')->create();
 
         $this->post($thread->path().'/comment', ['body' => 'Foo Comment']);
@@ -31,8 +31,7 @@ class ThreadCommentsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_reply_to_a_comment()
     {
-        $this->withoutExceptionHandling();
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
         $thread = factory('App\Thread')->create();
 
         $comment = $thread->addComment('Foo Comment');
@@ -46,5 +45,15 @@ class ThreadCommentsTest extends TestCase
 
         $this->assertTrue($thread->comment->last()->parent->is($comment));
     }
+
+    /** @test */
+    public function a_comment_requires_a_body()
+    {
+        $this->signIn();
+        $comment = factory('App\Comment')->raw(['body' => '']);
+
+        $this->post('threads/1/comment', $comment)->assertSessionHasErrors('body');
+    }
+
 
 }

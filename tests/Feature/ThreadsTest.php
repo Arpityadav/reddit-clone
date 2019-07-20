@@ -13,9 +13,8 @@ class ThreadsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_make_threads()
     {
-        $user = factory('App\User')->create();
+        $this->signIn();
 
-        $this->actingAs($user);
         $thread = factory('App\Thread')->create();
 
         $this->post('/threads', $thread->toArray());
@@ -28,11 +27,9 @@ class ThreadsTest extends TestCase
     /** @test */
     public function a_thread_requires_a_title()
     {
-        $user = factory('App\User')->create();
+        $this->signIn();
 
-        $this->actingAs($user);
         $thread = factory('App\Thread')->raw(['title' => '']);
-
 
         $this->post('/threads', $thread)
             ->assertSessionHasErrors('title');
@@ -42,9 +39,8 @@ class ThreadsTest extends TestCase
     /** @test */
     public function a_thread_requires_a_description()
     {
-        $user = factory('App\User')->create();
+        $this->signIn();
 
-        $this->actingAs($user);
         $thread = factory('App\Thread')->raw(['description' => '']);
 
 
