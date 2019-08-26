@@ -28,5 +28,7 @@ trait Commentable
         $comments['root'] = $comments[''];
 
         unset($comments['']);
+
+        return $comments;
     }
 }
