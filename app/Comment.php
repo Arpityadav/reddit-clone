@@ -8,6 +8,7 @@ class Comment extends Model
 {
     protected $guarded = [];
 
+
     public function reply($body)
     {
         $reply = new static(compact('body'));
@@ -38,5 +39,30 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function votes()
+    {
+        return $this->morphMany(Vote::class, 'voteable');
+    }
+
+    public function upvote()
+    {
+        if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
+            $this->votes()->create([
+                'user_id' => auth()->id(),
+                'voteable_action' => true,
+            ]);
+        }
+    }
+
+//    public function downvote()
+//    {
+//        if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
+//            $this->votes()->create([
+//                'user_id' => auth()->id(),
+//                'voteable_action' => false,
+//            ]);
+//        }
+//    }
 
 }
