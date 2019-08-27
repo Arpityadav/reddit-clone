@@ -39,7 +39,7 @@ class ThreadsController extends Controller
     public function show(Thread $thread)
     {
         if (($thread->comment->count())) {
-            $thread->sortComments();
+            $comments = $thread->sortComments();
 
 
             return view('threads.show', compact('thread','comments'));

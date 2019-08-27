@@ -13,7 +13,7 @@
     <div class="mt-4">
     <h2>Comments</h2>
 
-        @if(isset($comment))
+        @if(isset($comments))
             @include('threads.comment.list', ['collection' => $comments['root']])
         @else
             <p>No replies yet.</p>

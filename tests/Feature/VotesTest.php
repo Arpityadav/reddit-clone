@@ -25,41 +25,84 @@ class VotesTest extends TestCase
         $thread = factory('App\Thread')->create();
         $comment = $thread->addComment('A comment');
 
-        $this->post('/comment/'. $comment->id .'/vote');
+        $this->post('/comment/'. $comment->id .'/vote', [
+            'vote'=> 'upvote'
+        ]);
 
         $this->assertCount(1, $comment->votes);
     }
-//
-//    /** @test */
-//    public function an_authenticated_user_can_downvote_a_comment()
-//    {
-//        $this->signIn();
-//
-//        $thread = factory('App\Thread')->create();
-//        $comment = $thread->addComment('A comment');
-//
-//        $this->post('/comment/'. $comment->id .'/vote');
-//
-//        $this->assertCount(1, $comment->votes);
-//
-//        $this->post('/comment/'. $comment->id .'/vote');
-//
-//        $this->assertCount(1, $comment->votes);
-//
-//    }
 
     /** @test */
-    public function a_comment_cannot_be_voted_twice()
+    public function an_authenticated_user_can_downvote_a_comment()
     {
         $this->signIn();
 
         $thread = factory('App\Thread')->create();
         $comment = $thread->addComment('A comment');
 
-        $this->post('/comment/'. $comment->id .'/vote');
-        $this->post('/comment/'. $comment->id .'/vote');
+        $this->post('/comment/'. $comment->id .'/vote', [
+            'vote'=> 'downvote'
+        ]);
 
         $this->assertCount(1, $comment->votes);
     }
 
+    /** @test */
+    public function a_vote_becomes_neutral_if_voted_twice_for_the_same_action()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+
+        $thread = factory('App\Thread')->create();
+        $comment = $thread->addComment('A comment');
+
+        $this->post('/comment/'. $comment->id .'/vote', [
+            'vote'=> 'upvote'
+        ]);
+        $this->assertCount(1, $comment->votes);
+
+
+        $this->post('/comment/'. $comment->id .'/vote', [
+            'vote'=> 'upvote'
+        ]);
+
+        $comment->refresh();
+
+        $this->assertCount(0, $comment->votes);
+    }
+
+    /** @test */
+    public function a_vote_can_be_deleted()
+    {
+        $this->signIn();
+
+        $thread = factory('App\Thread')->create();
+        $comment = $thread->addComment('A comment');
+
+        $this->post('/comment/'. $comment->id .'/vote', [
+            'vote' => 'upvote'
+        ]);
+
+        $this->assertCount(1, $comment->votes);
+
+        $comment->deleteVote($comment->votes()->first()->toArray());
+
+        $comment->refresh();
+
+        $this->assertCount(0, $comment->votes);
+    }
+
+    /** @test */
+    public function a_user_can_only_upvote_or_downvote_a_comment()
+    {
+        $this->signIn();
+
+        $thread = factory('App\Thread')->create();
+        $comment = $thread->addComment('A comment');
+
+        $this->post('/comment/'. $comment->id .'/vote', [
+            'vote' => 'foobar'
+        ])
+        ->assertStatus(403);
+    }
 }

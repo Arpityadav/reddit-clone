@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Comment extends Model
 {
@@ -45,6 +46,16 @@ class Comment extends Model
         return $this->morphMany(Vote::class, 'voteable');
     }
 
+    public function isUpvoted()
+    {
+        return $this->votes()->where(['voteable_action' => true, 'user_id' => auth()->id()])->exists();
+    }
+
+    public function isDownvoted()
+    {
+        return $this->votes()->where(['voteable_action' => false, 'user_id' => auth()->id()])->exists();
+    }
+
     public function upvote()
     {
         if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
@@ -55,14 +66,19 @@ class Comment extends Model
         }
     }
 
-//    public function downvote()
-//    {
-//        if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
-//            $this->votes()->create([
-//                'user_id' => auth()->id(),
-//                'voteable_action' => false,
-//            ]);
-//        }
-//    }
+    public function downvote()
+    {
+        if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
+            $this->votes()->create([
+                'user_id' => auth()->id(),
+                'voteable_action' => false,
+            ]);
+        }
+    }
 
+    public function deleteVote($attributes)
+    {
+        DB::table('votes')->where($attributes)->delete();
+
+    }
 }
