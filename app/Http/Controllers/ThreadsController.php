@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use Tests\Feature\VotesTest;
 
 class ThreadsController extends Controller
 {
@@ -13,7 +14,7 @@ class ThreadsController extends Controller
 
     public function index()
     {
-        $threads = \App\Thread::all();
+        $threads = Thread::all();
 
         return view('threads.index', compact('threads'));
     }
@@ -37,10 +38,10 @@ class ThreadsController extends Controller
 
     public function show(Thread $thread)
     {
-        if (($thread->comment->count())){
+        if (($thread->comment->count())) {
             $comments = $thread->sortComments();
 
-            return view('threads.show', compact('thread', 'comments'));
+            return view('threads.show', compact('thread','comments'));
         }
 
         return view('threads.show', compact('thread'));

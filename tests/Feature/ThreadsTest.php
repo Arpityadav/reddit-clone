@@ -13,6 +13,7 @@ class ThreadsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_make_threads()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $thread = factory('App\Thread')->create();
