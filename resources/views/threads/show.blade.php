@@ -29,9 +29,6 @@
     <div class="mt-4">
     <h2>Comments</h2>
 
-<<<<<<< HEAD
-        @if(isset($thread->comment))
-=======
         @guest
             <p class="border border-gray-200 my-3 pl-2 py-4 text-gray-800">What are your thoughts? <a href="/login" class="text-blue-700">Log in</a> or <a href="/register" class="text-blue-700">Sign up</a></p>
         @endguest
@@ -55,7 +52,6 @@
         </div>
 
         @if(isset($comments))
->>>>>>> vote-system
             @include('threads.comment.list', ['collection' => $comments['root']])
         @else
             <p>No replies yet.</p>
