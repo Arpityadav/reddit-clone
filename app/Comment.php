@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class Comment extends Model
 {
+//    use Voteable;
+
     protected $guarded = [];
 
 
@@ -41,34 +43,14 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function votes()
-    {
-        return $this->morphMany(Vote::class, 'voteable');
-    }
-
     public function isUpvoted()
     {
         return $this->votes()->where(['voteable_action' => true, 'user_id' => auth()->id()])->exists();
     }
 
-    public function isDownvoted()
-    {
-        return $this->votes()->where(['voteable_action' => false, 'user_id' => auth()->id()])->exists();
-    }
-
-    public function upvote()
-    {
-        if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
-            $this->votes()->create([
-                'user_id' => auth()->id(),
-                'voteable_action' => true,
-            ]);
-        }
-    }
-
     public function downvote()
     {
-        if (! $this->votes()->where(['user_id' => auth()->id() ])->exists()) {
+        if (!$this->votes()->where(['user_id' => auth()->id()])->exists()) {
             $this->votes()->create([
                 'user_id' => auth()->id(),
                 'voteable_action' => false,
@@ -80,6 +62,26 @@ class Comment extends Model
     {
         DB::table('votes')->where($attributes)->delete();
 
+    }
+
+    public function upvote()
+    {
+        if (!$this->votes()->where(['user_id' => auth()->id()])->exists()) {
+            $this->votes()->create([
+                'user_id' => auth()->id(),
+                'voteable_action' => true,
+            ]);
+        }
+    }
+
+    public function votes()
+    {
+        return $this->morphMany(Vote::class, 'voteable');
+    }
+
+    public function isDownvoted()
+    {
+        return $this->votes()->where(['voteable_action' => false, 'user_id' => auth()->id()])->exists();
     }
 
     public function getCurrentVotes($vote_id)
@@ -101,4 +103,5 @@ class Comment extends Model
             return $upvotes - $downvotes;
         }
     }
+
 }

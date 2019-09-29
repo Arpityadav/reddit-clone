@@ -22,11 +22,12 @@ class VotesController extends Controller
 
             if ($voteExists->voteable_action === true) {
                 if (request('vote') === 'upvote') {
-                    $comment->deleteVote($comment->votes()->first()->toArray());
+                    $comment->deleteVote($comment->votes()->where('user_id', auth()->id())->first()->toArray());
 
                     return back();
                 } elseif (request('vote') === 'downvote') {
-                    $comment->deleteVote($comment->votes()->first()->toArray());
+
+                    $comment->deleteVote($comment->votes()->where('user_id', auth()->id())->first()->toArray());
 
                     $comment->downvote();
 
@@ -37,11 +38,11 @@ class VotesController extends Controller
 
             } elseif ($voteExists->voteable_action === false) {
                 if (request('vote') === 'downvote') {
-                    $comment->deleteVote($comment->votes()->first()->toArray());
+                    $comment->deleteVote($comment->votes()->where('user_id', auth()->id())->first()->toArray());
 
                     return back();
                 } elseif (request('vote') === 'upvote') {
-                    $comment->deleteVote($comment->votes()->first()->toArray());
+                    $comment->deleteVote($comment->votes()->where('user_id', auth()->id())->first()->toArray());
 
                     $comment->upvote();
 
