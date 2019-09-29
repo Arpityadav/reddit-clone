@@ -13,4 +13,5 @@ class Vote extends Model
     protected $casts = [
         'voteable_action' => 'boolean'
     ];
+
 }
