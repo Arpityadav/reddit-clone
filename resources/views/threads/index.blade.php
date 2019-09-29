@@ -2,8 +2,9 @@
 
 @section('content')
     @forelse($threads as $thread)
-        <a href="{{ $thread->path() }}">
-            <div class="mx-auto content-center">
+        <div class="content-center">
+            <a href="{{ $thread->path() }}">
+
                 <div class="border p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
                         <div class="text-gray-900 font-bold text-xl mb-2">{{ $thread->title }}</div>
@@ -17,8 +18,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     @empty
         <p>No threads created.</p>
     @endforelse

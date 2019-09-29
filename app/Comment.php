@@ -81,4 +81,24 @@ class Comment extends Model
         DB::table('votes')->where($attributes)->delete();
 
     }
+
+    public function getCurrentVotes($vote_id)
+    {
+        $votes = Vote::where('voteable_id', $vote_id)->get();
+
+        $upvotes = 0;
+        $downvotes = 0;
+
+        if ($votes) {
+            foreach ($votes as $vote) {
+                if ($vote->voteable_action) {
+                    $upvotes++;
+                } elseif (!$vote->voteable_action) {
+                    $downvotes++;
+                }
+            }
+
+            return $upvotes - $downvotes;
+        }
+    }
 }

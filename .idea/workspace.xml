@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6388b936-0937-45b8-85f2-949a44e2be1c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Gravatarable.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Commentable.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Commentable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/VotesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/VotesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Vote.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Vote.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/threads/comment/comment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/threads/comment/comment.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/threads/comment/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/threads/comment/form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/threads/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/threads/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/threads/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/threads/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/ThreadsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/ThreadsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/VotesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/VotesTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,13 +30,6 @@
     <execution>
       <executable />
     </execution>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>on(</find>
-      <find>function on</find>
-      <find>assertD</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -119,12 +119,6 @@
       <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="9" />
-    <option name="y" value="185" />
-    <option name="width" value="1346" />
-    <option name="height" value="698" />
-  </component>
   <component name="ProjectId" id="1PvrXlFDGLQDorIchS4FZj8LCJd" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -207,11 +201,15 @@
       <workItem from="1566761919403" duration="3345000" />
       <workItem from="1566765469169" duration="4324000" />
       <workItem from="1566939850917" duration="9262000" />
+      <workItem from="1569583104014" duration="29686000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.config" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
