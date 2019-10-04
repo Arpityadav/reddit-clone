@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+//use App\Providers\VotesServiceProvider;
 use App\Thread;
 use Illuminate\Http\Request;
 
 class ThreadCommentsController extends Controller
 {
+
+
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     public function store(Thread $thread)

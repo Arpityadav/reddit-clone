@@ -1,7 +1,7 @@
 <li class="{{ isset($isReply) ? 'ml-10 my-2' : '' }}">
     <div class="flex border-l-2">
 
-        <div class=" comments">
+        <div class="comments">
             <form action="/comment/{{$comment->id}}/vote" method="POST">
                 @csrf
                 <input type="hidden" name="vote" value="upvote">

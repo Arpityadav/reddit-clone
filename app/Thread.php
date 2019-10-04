@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    use Commentable;
+    use Commentable, Voteable;
 
     protected $guarded = [];
 

@@ -2,29 +2,48 @@
 
 @section('content')
 <div class="flex-column">
-    <div class="flex m-6">
+    <div class="flex-col m-6">
 
-        <div class="flex-none items-center">
-            <img src="{{ $thread->user->gravatar }}" class="rounded-full" style="max-height: 40px;">
+        <div class="flex">
+            <div class="flex-none items-center">
+                <img src="{{ $thread->user->gravatar }}" class="border border-gray-400 mt-2" style="max-height: 40px; border-radius: 14px;">
+            </div>
+            <div class="flex-column items-center ml-4">
+                <h2 class="text-2xl text-gray-800">{{$thread->title}}</h2>
+
+                <div class="flex-column">
+                    <small class="text-sm text-gray-700">submitted {{ $thread->created_at->diffForHumans() }} by {{ $thread->user->name }} with {{ $thread->comment->count() }} {{str_plural('reply', $thread->comment->count())}}</small>
+                </div>
+            </div>
         </div>
-        <div class="flex-column">
-            <h2 class="text-4xl text-gray-800">{{$thread->title}}</h2>
+
+        <div class="flex">
+            <div class="flex-none items-center ml-1">
+                <form action="/{{$thread->path()}}/vote" method="POST">
+                    @csrf
+                    <input type="hidden" name="vote" value="upvote">
+                    <button type="submit" class="focus:outline-none">
+                        <i class="material-icons {{ $thread->isUpvoted() ? 'text-blue-700' : '' }}">keyboard_arrow_up</i>
+                    </button>
+                </form>
+
+                <span class="ml-2">{{ $thread->getCurrentVotes($thread->id) }}</span>
+
+                <form action="/{{$thread->path()}}/vote" method="POST">
+                    @csrf
+                    <input type="hidden" name="vote" value="downvote">
+                    <button type="submit" class="focus:outline-none">
+                        <i class="material-icons {{ $thread->isDownvoted() ? 'text-blue-700' : '' }}">keyboard_arrow_down</i>
+                    </button>
+                </form>
+            </div>
+            <div class="m-2 ml-8">
+                <p class="text-gray-800 ">{{$thread->description}}</p>
+            </div>
         </div>
 
     </div>
 
-    <div class="flex">
-        <div class="flex-none items-center">
-            <i class="material-icons">
-                thumb_up_alt
-            </i>
-        </div>
-        <div class="flex-column">
-            <p class="text-gray-800 ">{{$thread->description}}</p>
-            <span class="text-sm text-gray-700">Submitted {{ $thread->created_at->diffForHumans() }} by {{ $thread->user->name }}</span>
-            <span class="text-sm text-gray-700">234 comments</span>
-        </div>
-    </div>
     <hr>
     <div class="mt-4">
     <h2>Comments</h2>
