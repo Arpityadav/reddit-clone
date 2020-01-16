@@ -18,25 +18,6 @@
         </div>
 
         <div class="flex">
-            <div class="flex-none items-center ml-1">
-                <form action="/{{$thread->path()}}/vote" method="POST">
-                    @csrf
-                    <input type="hidden" name="vote" value="upvote">
-                    <button type="submit" class="focus:outline-none">
-                        <i class="material-icons {{ $thread->isUpvoted() ? 'text-blue-700' : '' }}">keyboard_arrow_up</i>
-                    </button>
-                </form>
-
-                <span class="ml-2">{{ $thread->getCurrentVotes($thread->id) }}</span>
-
-                <form action="/{{$thread->path()}}/vote" method="POST">
-                    @csrf
-                    <input type="hidden" name="vote" value="downvote">
-                    <button type="submit" class="focus:outline-none">
-                        <i class="material-icons {{ $thread->isDownvoted() ? 'text-blue-700' : '' }}">keyboard_arrow_down</i>
-                    </button>
-                </form>
-            </div>
             <div class="m-2 ml-8">
                 <p class="text-gray-800 ">{{$thread->description}}</p>
             </div>

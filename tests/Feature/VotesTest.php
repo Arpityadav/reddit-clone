@@ -21,12 +21,13 @@ class VotesTest extends TestCase
     public function an_authenticated_user_can_upvote_a_comment()
     {
         $this->signIn();
-
+        $this->withoutExceptionHandling();
         $thread = factory('App\Thread')->create();
         $comment = $thread->addComment('A comment');
 
         $this->post('/comment/'. $comment->id .'/vote', [
-            'vote'=> 'upvote'
+            'vote'=> 'upvote',
+            'model' => 'comment'
         ]);
 
         $this->assertCount(1, $comment->votes);
@@ -41,7 +42,8 @@ class VotesTest extends TestCase
         $comment = $thread->addComment('A comment');
 
         $this->post('/comment/'. $comment->id .'/vote', [
-            'vote'=> 'downvote'
+            'vote'=> 'downvote',
+            'model' => 'comment'
         ]);
 
         $this->assertCount(1, $comment->votes);
@@ -57,13 +59,15 @@ class VotesTest extends TestCase
         $comment = $thread->addComment('A comment');
 
         $this->post('/comment/'. $comment->id .'/vote', [
-            'vote'=> 'upvote'
+            'vote'=> 'upvote',
+            'model' => 'comment'
         ]);
         $this->assertCount(1, $comment->votes);
 
 
         $this->post('/comment/'. $comment->id .'/vote', [
-            'vote'=> 'upvote'
+            'vote'=> 'upvote',
+            'model' => 'comment'
         ]);
 
         $comment->refresh();
@@ -80,7 +84,8 @@ class VotesTest extends TestCase
         $comment = $thread->addComment('A comment');
 
         $this->post('/comment/'. $comment->id .'/vote', [
-            'vote' => 'upvote'
+            'vote' => 'upvote',
+            'model' => 'comment'
         ]);
 
         $this->assertCount(1, $comment->votes);
@@ -101,7 +106,8 @@ class VotesTest extends TestCase
         $comment = $thread->addComment('A comment');
 
         $this->post('/comment/'. $comment->id .'/vote', [
-            'vote' => 'foobar'
+            'vote' => 'foobar',
+            'model' => 'comment'
         ])
         ->assertStatus(403);
     }

@@ -8,6 +8,8 @@ class Comment extends Model
 {
     use Voteable;
 
+    protected $appends = ['votesCount', 'upvoted', 'downvoted'];
+
     protected $guarded = [];
 
     public function reply($body)
@@ -42,5 +44,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Comment::class, 'reply_to_id');
     }
-
 }

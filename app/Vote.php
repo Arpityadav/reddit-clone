@@ -14,4 +14,9 @@ class Vote extends Model
         'voteable_action' => 'boolean'
     ];
 
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
 }

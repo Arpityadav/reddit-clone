@@ -1,25 +1,7 @@
 <li class="{{ isset($isReply) ? 'ml-10 my-2' : '' }}">
     <div class="flex border-l-2">
 
-        <div class="comments">
-            <form action="/comment/{{$comment->id}}/vote" method="POST">
-                @csrf
-                <input type="hidden" name="vote" value="upvote">
-                <button type="submit" class="focus:outline-none">
-                    <i class="material-icons {{ $comment->isUpvoted() ? 'text-blue-700' : '' }}">keyboard_arrow_up</i>
-                </button>
-            </form>
-
-            <span class="ml-2">{{ $comment->getCurrentVotes($comment->id) }}</span>
-
-            <form action="/comment/{{$comment->id}}/vote" method="POST">
-                @csrf
-                <input type="hidden" name="vote" value="downvote">
-                <button type="submit" class="focus:outline-none">
-                    <i class="material-icons {{ $comment->isDownvoted() ? 'text-blue-700' : '' }}">keyboard_arrow_down</i>
-                </button>
-            </form>
-        </div>
+        <vote :data="{{ $comment }}" model="comment"></vote>
 
         <div class="w-full ml-4">
             <small><a href="#" class="text-blue-700">{{ $comment->user->name}}</a></small>
